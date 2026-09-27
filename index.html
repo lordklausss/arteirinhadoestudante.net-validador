@@ -1,726 +1,281 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Validação da Carteira - DCE-GO</title>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-<style>
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: 'Segoe UI', Roboto, Arial, sans-serif;
-}
+    <meta charset="UTF-8">
+    <title>Documento Nacional do Estudante</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #e9ecef;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
 
-body {
-    background: #f0f2f5;
-    color: #333;
-    min-height: 100vh;
-}
+        .card {
+            width: 800px;
+            height: 500px;
+            background: linear-gradient(135deg, #f4f6f9 0%, #e2e8f0 100%);
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            position: relative;
+            overflow: hidden;
+            padding: 30px;
+            box-sizing: border-box;
+            display: flex;
+            flex-direction: column;
+        }
 
-/* ============ HEADER ============ */
-.topbar {
-    background: #1b5a95;
-    color: #ffffff;
-    padding: 12px 18px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    position: sticky;
-    top: 0;
-    z-index: 100;
-}
+        /* Formas geométricas de fundo */
+        .shape-purple {
+            position: absolute;
+            bottom: -50px;
+            left: -50px;
+            width: 300px;
+            height: 300px;
+            background-color: #7b2cbf;
+            border-radius: 50%;
+            opacity: 0.8;
+            z-index: 0;
+        }
 
-.topbar-left {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-}
+        .shape-blue {
+            position: absolute;
+            bottom: -80px;
+            right: -50px;
+            width: 400px;
+            height: 200px;
+            background-color: #1e3a8a;
+            transform: rotate(-15deg);
+            z-index: 0;
+        }
 
-.dce-badge {
-    width: 40px;
-    height: 40px;
-    background: #ffffff;
-    border-radius: 50%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    color: #1b5a95;
-    font-weight: 800;
-    font-size: 0.7rem;
-    line-height: 1;
-}
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1;
+            margin-bottom: 20px;
+        }
 
-.dce-badge span {
-    font-size: 0.5rem;
-    margin-top: 1px;
-}
+        .logo-dne {
+            font-size: 32px;
+            font-weight: bold;
+            color: #1e3a8a;
+            font-family: 'Arial Black', sans-serif;
+            letter-spacing: -2px;
+            margin: 0;
+        }
 
-.topbar-left .brand {
-    font-size: 1.05rem;
-    font-weight: 700;
-    letter-spacing: 0.3px;
-}
+        .logo-dne span {
+            font-weight: normal;
+            font-size: 14px;
+            display: block;
+            letter-spacing: 0;
+            color: #1e3a8a;
+            margin-top: -5px;
+        }
 
-.menu-btn {
-    background: transparent;
-    border: none;
-    color: #ffffff;
-    font-size: 1.5rem;
-    cursor: pointer;
-    padding: 4px 8px;
-}
+        .header-logos {
+            display: flex;
+            gap: 10px;
+            font-size: 12px;
+            font-weight: bold;
+            color: #1e3a8a;
+        }
 
-/* ============ WRAPPER ============ */
-.wrapper {
-    max-width: 1000px;
-    margin: 0 auto;
-    padding: 18px 14px 60px;
-}
+        .content-area {
+            display: flex;
+            z-index: 1;
+            flex: 1;
+        }
 
-/* ============ BANNER VERDE ============ */
-.valid-banner {
-    background: #d8e9d9;
-    border-radius: 8px;
-    padding: 24px 16px;
-    text-align: center;
-    margin-bottom: 20px;
-}
+        .photo-container {
+            width: 180px;
+            height: 240px;
+            background-color: #ccc;
+            border-radius: 5px;
+            overflow: hidden;
+            margin-right: 20px;
+            border: 2px solid #fff;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
 
-.valid-banner h1 {
-    color: #2e7d32;
-    font-size: 1.7rem;
-    font-weight: 700;
-}
+        .photo-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
 
-/* ============ TEXTO ATESTADO ============ */
-.attest-text {
-    text-align: center;
-    font-size: 0.92rem;
-    color: #333;
-    margin: 0 0 22px;
-    line-height: 1.55;
-    padding: 0 4px;
-}
+        .info-container {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            padding-top: 10px;
+        }
 
-.attest-text strong {
-    font-weight: 700;
-}
+        /* Estilos dos textos solicitados (sem negrito) */
+        .name {
+            font-size: 24px;
+            font-weight: normal; /* Sem negrito */
+            color: #000;
+            margin: 0 0 20px 0;
+        }
 
-/* ============ CARTEIRINHA ============ */
-.card-wrapper {
-    margin-bottom: 22px;
-}
+        .field-group {
+            margin-bottom: 10px;
+        }
 
-.student-card {
-    width: 100%;
-    background: linear-gradient(160deg, #f4f4fb 0%, #e8e8f2 60%, #e0e0ec 100%);
-    border-radius: 14px;
-    overflow: hidden;
-    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.12);
-    position: relative;
-    padding: 16px 16px 20px;
-    min-height: 240px;
-}
+        .field-label {
+            font-weight: normal; /* Sem negrito */
+            color: #000;
+            font-size: 16px;
+        }
 
-/* Formas decorativas do fundo */
-.student-card::before {
-    content: '';
-    position: absolute;
-    bottom: -60px;
-    left: -40px;
-    width: 200px;
-    height: 200px;
-    background: linear-gradient(135deg, #8e44ad 0%, #6a1b9a 100%);
-    border-radius: 50%;
-    opacity: 0.85;
-    z-index: 0;
-}
+        .field-value {
+            font-weight: normal; /* Sem negrito */
+            color: #000;
+            font-size: 16px;
+        }
 
-.student-card::after {
-    content: '';
-    position: absolute;
-    bottom: -50px;
-    right: -60px;
-    width: 240px;
-    height: 180px;
-    background: linear-gradient(135deg, #4a6cd4 0%, #2a4bb8 100%);
-    border-radius: 50%;
-    opacity: 0.9;
-    z-index: 0;
-}
+        .course {
+            font-size: 18px;
+            font-weight: normal; /* Sem negrito */
+            color: #000;
+            margin-top: 20px;
+            margin-bottom: 5px;
+        }
 
-.card-content {
-    position: relative;
-    z-index: 1;
-}
+        .institution {
+            font-size: 18px;
+            font-weight: normal; /* Sem negrito */
+            color: #000;
+        }
 
-/* Topo: logos */
-.card-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    margin-bottom: 12px;
-    gap: 8px;
-}
+        .new-fields {
+            margin-top: 15px;
+            font-size: 14px;
+            font-weight: normal; /* Sem negrito */
+            color: #000;
+        }
 
-.card-brand {
-    display: flex;
-    align-items: flex-start;
-    gap: 6px;
-}
+        .right-panel {
+            width: 180px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: space-between;
+            margin-left: 20px;
+            background-color: rgba(255, 255, 255, 0.9);
+            padding: 15px;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            z-index: 2;
+        }
 
-.dhe-logo {
-    font-family: 'Trebuchet MS', Arial, sans-serif;
-    font-size: 2.4rem;
-    font-weight: 900;
-    color: #1b3a8c;
-    letter-spacing: -3px;
-    line-height: 0.9;
-    font-style: italic;
-}
+        .qr-code {
+            width: 130px;
+            height: 130px;
+            background-color: #000;
+            /* Placeholder para o QR Code */
+            background-image: repeating-linear-gradient(45deg, #fff 25%, transparent 25%, transparent 75%, #fff 75%, #fff), repeating-linear-gradient(45deg, #fff 25%, #000 25%, #000 75%, #fff 75%, #fff);
+            background-position: 0 0, 10px 10px;
+            background-size: 20px 20px;
+            margin-bottom: 10px;
+        }
 
-.dhe-text {
-    color: #1b5a95;
-    font-size: 0.55rem;
-    font-weight: 600;
-    line-height: 1.15;
-    text-transform: none;
-    margin-top: 4px;
-}
+        .cod-uso {
+            font-size: 14px;
+            text-align: center;
+            color: #555;
+            font-weight: normal;
+        }
 
-.card-logos {
-    display: flex;
-    gap: 6px;
-    align-items: center;
-}
+        .cod-value {
+            font-size: 16px;
+            font-weight: normal;
+            color: #000;
+            margin-top: 5px;
+        }
 
-.logo-circle {
-    width: 30px;
-    height: 30px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: #ffffff;
-    font-size: 0.55rem;
-    font-weight: 800;
-    text-align: center;
-    line-height: 1;
-}
-
-.logo-une {
-    background: #1b5a95;
-}
-
-.logo-ubes {
-    background: linear-gradient(135deg, #2e7d32 0%, #1b5a95 100%);
-}
-
-.logo-anpg {
-    background: transparent;
-    color: #000;
-    font-size: 0.75rem;
-    font-weight: 900;
-    letter-spacing: -0.5px;
-    width: auto;
-    padding: 0 2px;
-}
-
-.logo-anpg small {
-    display: block;
-    font-size: 0.32rem;
-    font-weight: 600;
-    letter-spacing: 0;
-    line-height: 1;
-    margin-top: 1px;
-    text-align: center;
-}
-
-/* Nome */
-.card-name {
-    font-size: 1.3rem;
-    font-weight: 800;
-    color: #000;
-    margin-bottom: 14px;
-    line-height: 1.15;
-    letter-spacing: -0.3px;
-}
-
-/* Corpo: foto + dados + QR */
-.card-body {
-    display: flex;
-    gap: 12px;
-    align-items: flex-start;
-    margin-bottom: 8px;
-}
-
-.card-photo {
-    width: 105px;
-    height: 135px;
-    border-radius: 4px;
-    overflow: hidden;
-    flex-shrink: 0;
-    background: #3a3a3a;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.card-photo img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-}
-
-.card-photo i {
-    font-size: 3rem;
-    color: #888;
-}
-
-.card-data {
-    flex: 1;
-    min-width: 0;
-    padding-top: 2px;
-}
-
-.data-line {
-    font-size: 0.82rem;
-    color: #333;
-    line-height: 1.5;
-    margin-bottom: 2px;
-}
-
-.data-line strong {
-    font-weight: 800;
-    color: #000;
-}
-
-.course-info {
-    margin-top: 14px;
-}
-
-.course-name {
-    font-size: 0.85rem;
-    font-style: italic;
-    color: #555;
-    margin-bottom: 3px;
-}
-
-.course-inst {
-    font-size: 0.88rem;
-    font-weight: 800;
-    color: #000;
-    line-height: 1.25;
-}
-
-/* Coluna do QR */
-.card-qr-col {
-    width: 85px;
-    flex-shrink: 0;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-end;
-    text-align: right;
-}
-
-.card-qr {
-    width: 80px;
-    height: 80px;
-    background: #ffffff;
-    border-radius: 3px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-bottom: 6px;
-    padding: 4px;
-}
-
-.card-qr i {
-    font-size: 4rem;
-    color: #000;
-}
-
-.qr-code-text {
-    font-size: 0.6rem;
-    color: #666;
-    line-height: 1.15;
-    margin-bottom: 2px;
-}
-
-.qr-code-number {
-    font-size: 0.85rem;
-    font-weight: 800;
-    color: #000;
-    line-height: 1.2;
-    margin-bottom: 8px;
-}
-
-.year-stylized {
-    font-family: 'Arial Black', 'Segoe UI', sans-serif;
-    font-size: 2rem;
-    font-weight: 900;
-    color: #1b3a8c;
-    letter-spacing: -4px;
-    line-height: 0.9;
-    margin-top: auto;
-}
-
-/* ============ TABELA INFO ============ */
-.info-table {
-    background: #ffffff;
-    border-radius: 8px;
-    overflow: hidden;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
-    margin-bottom: 22px;
-}
-
-.info-table .row {
-    display: grid;
-    grid-template-columns: 42% 58%;
-    border-bottom: 1px solid #eee;
-}
-
-.info-table .row:last-child {
-    border-bottom: none;
-}
-
-.info-table .label {
-    background: #f7f9fc;
-    padding: 14px 16px;
-    font-weight: 800;
-    color: #333;
-    text-align: right;
-    font-size: 0.88rem;
-    border-right: 1px solid #eee;
-}
-
-.info-table .value {
-    padding: 14px 16px;
-    font-weight: 600;
-    color: #333;
-    font-size: 0.88rem;
-    word-break: break-word;
-    background: #ffffff;
-}
-
-/* ============ VALIDADE ============ */
-.validity-line {
-    text-align: center;
-    font-size: 1rem;
-    color: #1b5a95;
-    font-weight: 800;
-    margin: 20px 0 30px;
-}
-
-/* ============ PEM ============ */
-.pem-title {
-    font-size: 1.2rem;
-    font-weight: 800;
-    color: #333;
-    margin-bottom: 14px;
-}
-
-.pem-box {
-    border: 1px solid #d0d0d0;
-    border-radius: 4px;
-    padding: 16px;
-    background: #fafafa;
-    font-family: 'Courier New', monospace;
-    font-size: 0.62rem;
-    color: #333;
-    line-height: 1.6;
-    word-break: break-all;
-    white-space: pre-wrap;
-    max-height: 380px;
-    overflow-y: auto;
-}
-
-.pem-box .pem-header,
-.pem-box .pem-footer {
-    display: block;
-    text-align: center;
-    font-weight: 700;
-    margin: 8px 0;
-}
-
-/* ============ DESKTOP ============ */
-@media (min-width: 850px) {
-    .wrapper {
-        padding: 30px 24px 60px;
-    }
-    
-    .valid-banner h1 {
-        font-size: 2rem;
-    }
-    
-    .attest-text {
-        font-size: 1rem;
-        margin-bottom: 30px;
-    }
-    
-    /* No desktop, a carta e a tabela ficam lado a lado */
-    .desktop-layout {
-        display: flex;
-        gap: 25px;
-        align-items: flex-start;
-        margin-bottom: 25px;
-    }
-    
-    .desktop-layout .info-table {
-        flex: 1 1 50%;
-        margin-bottom: 0;
-    }
-    
-    .desktop-layout .card-wrapper {
-        flex: 1 1 50%;
-        margin-bottom: 0;
-    }
-    
-    .student-card {
-        padding: 20px 22px 24px;
-        min-height: 280px;
-    }
-    
-    .card-name {
-        font-size: 1.55rem;
-    }
-    
-    .card-photo {
-        width: 130px;
-        height: 165px;
-    }
-    
-    .data-line {
-        font-size: 0.92rem;
-    }
-    
-    .course-name {
-        font-size: 0.95rem;
-    }
-    
-    .course-inst {
-        font-size: 1rem;
-    }
-    
-    .card-qr-col {
-        width: 100px;
-    }
-    
-    .card-qr {
-        width: 92px;
-        height: 92px;
-    }
-    
-    .year-stylized {
-        font-size: 2.4rem;
-    }
-    
-    .pem-box {
-        font-size: 0.72rem;
-        padding: 22px 26px;
-    }
-}
-
-/* ============ MOBILE PEQUENO ============ */
-@media (max-width: 400px) {
-    .card-name {
-        font-size: 1.15rem;
-    }
-    
-    .card-photo {
-        width: 90px;
-        height: 120px;
-    }
-    
-    .data-line {
-        font-size: 0.75rem;
-    }
-    
-    .course-name {
-        font-size: 0.78rem;
-    }
-    
-    .course-inst {
-        font-size: 0.8rem;
-    }
-    
-    .card-qr-col {
-        width: 72px;
-    }
-    
-    .card-qr {
-        width: 68px;
-        height: 68px;
-    }
-    
-    .card-qr i {
-        font-size: 3.2rem;
-    }
-    
-    .qr-code-number {
-        font-size: 0.75rem;
-    }
-    
-    .year-stylized {
-        font-size: 1.6rem;
-    }
-    
-    .info-table .label,
-    .info-table .value {
-        padding: 12px 12px;
-        font-size: 0.82rem;
-    }
-}
-</style>
+        .year {
+            font-size: 36px;
+            font-weight: bold;
+            color: #1e3a8a;
+            margin-top: 20px;
+        }
+    </style>
 </head>
 <body>
 
-<!-- ============ HEADER ============ -->
-<header class="topbar">
-    <div class="topbar-left">
-        <div class="dce-badge">DCE<span>GO</span></div>
-        <div class="brand">DCE-GO</div>
-    </div>
-    <button class="menu-btn" aria-label="Menu">☰</button>
-</header>
+    <div class="card">
+        <!-- Formas de fundo -->
+        <div class="shape-purple"></div>
+        <div class="shape-blue"></div>
 
-<!-- ============ CONTEÚDO ============ -->
-<main class="wrapper">
+        <!-- Cabeçalho -->
+        <div class="header">
+            <div class="logo-dne">
+                dne
+                <span>Documento<br>Nacional<br>do Estudante</span>
+            </div>
+            <div class="header-logos">
+                <span>UNE</span>
+                <span>UBES</span>
+                <span>ANPG</span>
+            </div>
+        </div>
 
-    <!-- Banner verde -->
-    <div class="valid-banner">
-        <h1>Documento válido!</h1>
-    </div>
+        <!-- Área Principal -->
+        <div class="content-area">
+            <!-- Foto do Aluno -->
+            <div class="photo-container">
+                <!-- Substitua o 'src' pela imagem real ou Base64 -->
+                <img src="sua-foto.jpg" alt="Foto do Estudante">
+            </div>
 
-    <!-- Texto atestado -->
-    <p class="attest-text">
-        DCE-GO atesta que <strong>CLAUDIO FILHO RODRIGUES DOS SANTOS</strong> é estudante, e está regularmente matriculado(a) em <strong>ANÁLISE DE SISTEMAS</strong> da instituição <strong>CENTRO UNIVERSITÁRIO DE GOIÁS - UNIGOIÁS</strong>!
-    </p>
+            <!-- Informações do Aluno -->
+            <div class="info-container">
+                <!-- Nome (Sem Negrito) -->
+                <h1 class="name">CLAUDIO FILHO RODRIGUES</h1>
 
-    <!-- Layout: no desktop fica lado a lado, no mobile empilhado -->
-    <div class="desktop-layout">
+                <!-- CPF e Data -->
+                <div class="field-group">
+                    <span class="field-label">CPF/CIN: </span>
+                    <span class="field-value">701.915.551-00</span>
+                </div>
+                <div class="field-group">
+                    <span class="field-label">SSP/GO</span>
+                </div>
+                <div class="field-group">
+                    <span class="field-label">Data nasc.: </span>
+                    <span class="field-value">12/09/1996</span>
+                </div>
 
-        <!-- Carteirinha -->
-        <div class="card-wrapper">
-            <div class="student-card">
-                <div class="card-content">
+                <!-- Curso e Instituição (Sem Negrito) -->
+                <div class="course">ANÁLISE DE SISTEMAS</div>
+                <div class="institution">CENTRO UNIVERSITÁRIO UNIGOIAS</div>
 
-                    <!-- Topo: logos -->
-                    <div class="card-header">
-                        <div class="card-brand">
-                            <div class="dhe-logo">dhe</div>
-                            <div class="dhe-text">
-                                Documento<br>
-                                Nacional<br>
-                                do Estudante
-                            </div>
-                        </div>
-                        <div class="card-logos">
-                            <div class="logo-circle logo-une">UNE</div>
-                            <div class="logo-circle logo-ubes">UBES</div>
-                            <div class="logo-anpg">
-                                ANPG
-                                <small>ASSOCIAÇÃO NACIONAL<br>DE PÓS-GRADUANDOS</small>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Nome -->
-                    <div class="card-name">Claudio Filho Rodrigues dos Santos</div>
-
-                    <!-- Corpo: foto + dados + QR -->
-                    <div class="card-body">
-                        <div class="card-photo">
-                            <i class="fas fa-user"></i>
-                        </div>
-
-                        <div class="card-data">
-                            <div class="data-line"><strong>CPF/CIN:</strong> 701.915.551-00</div>
-                            <div class="data-line"><strong>Data nasc.:</strong> 12/09/1996</div>
-
-                            <div class="course-info">
-                                <div class="course-name">Análise de Sistemas</div>
-                                <div class="course-inst">Centro Universitário de Goiás -<br>UNIGOIÁS</div>
-                            </div>
-                        </div>
-
-                        <div class="card-qr-col">
-                            <div class="card-qr">
-                                <i class="fas fa-qrcode"></i>
-                            </div>
-                            <div class="qr-code-text">Cod. uso / CIE</div>
-                            <div class="qr-code-number">26000026327</div>
-                            <div class="year-stylized">2026</div>
-                        </div>
-                    </div>
-
+                <!-- Novos campos adicionados (Sem Negrito) -->
+                <div class="new-fields">
+                    Certificado de Atributo em formato PEM:
                 </div>
             </div>
-        </div>
 
-        <!-- Tabela de informações -->
-        <div class="info-table">
-            <div class="row">
-                <div class="label">Nome:</div>
-                <div class="value">CLAUDIO FILHO RODRIGUES DOS SANTOS</div>
-            </div>
-            <div class="row">
-                <div class="label">Instituição:</div>
-                <div class="value">CENTRO UNIVERSITÁRIO DE GOIÁS - UNIGOIÁS</div>
-            </div>
-            <div class="row">
-                <div class="label">Curso:</div>
-                <div class="value">ANÁLISE DE SISTEMAS</div>
-            </div>
-            <div class="row">
-                <div class="label">Documento de Identificação:</div>
-                <div class="value">701.915.551-00</div>
-            </div>
-            <div class="row">
-                <div class="label">Emissor:</div>
-                <div class="value">SSP/GO</div>
+            <!-- Painel Direito (QR Code e Código) -->
+            <div class="right-panel">
+                <div class="qr-code"></div>
+                <div class="cod-uso">
+                    Cod. uso / CIE
+                    <div class="cod-value">26000026327</div>
+                </div>
+                <div class="year">2026</div>
             </div>
         </div>
-
     </div>
-
-    <!-- Validade -->
-    <p class="validity-line">Documento válido até Março de 2027</p>
-
-    <!-- PEM -->
-    <h2 class="pem-title">Certificado de Atributo em formato PEM:</h2>
-
-    <div class="pem-box">
-<span class="pem-header">-----BEGIN CERTIFICATE-----</span>
-MIIHHTCCBwOgAwIBAgIITLMzBKx7OgYwDQYJKoZIhvcNAQELBQAwgYkxCzAJBgNV
-BAYTAkJSMRMwEQYDVQQIDApEaXN0cml0byBGZWRlcmFsMRIwEAYDVQQHDAlicmFz
-aWxpYTEbMBkGA1UECgwST3JnYW5pemFjYW8gZGEgU29jaWVkYWRlIENpdmlsIFBh
-cnRpY2lwYXRpdmEgLSBPU0NQMSQwIgYDVQQDDBtBdXRvcmlkYWRlIENlcnRpZmlj
-YWRvcmEgT3NjIEJyYXNpbDAeFw0yNTA5MTcxOTAwMDBaFw0yNjA5MTcxOTAwMDBa
-MIGJMQswCQYDVQQGEwJCUjETMBEGA1UECAwKRGlzdHJpdG8gRmVkZXJhbDESMBAG
-A1UEBwwJQnJhc2lsaWExGzAZBgNVBAoMEk9yZ2FuaXphY2FvIGRhIFNvY2llZGFk
-ZSBDaXZpbCBQYXJ0aWNpcGF0aXZhIC0gT1NDUDEkMCIGA1UEAwwbQXV0b3JpZGFk
-ZSBDZXJ0aWZpY2Fkb3JhIE9zYyBCcmFzaWwwggIiMA0GCSqGSIb3DQEBAQUAA4IC
-DwAwggIKAoICAQDF7xHmmdJ3bP4Dv5jPzFhVgZ5P5WQvKf5F5NqVQfHhV8jK5PzX
-qP8KpP5q3nP8F5zH5wK5PzF5vK5PzXqP8KpP5q3nP8F5zH5wK5PzF5vK5PzXqP8K
-pP5q3nP8F5zH5wK5PzF5vK5PzXqP8KpP5q3nP8F5zH5wK5PzF5vK5PzXqP8KpP5q
-3nP8F5zH5wK5PzF5vK5PzXqP8KpP5q3nP8F5zH5wK5PzF5vK5PzXqP8KpP5q3nP8
-F5zH5wK5PzF5vK5PzXqP8KpP5q3nP8F5zH5wK5PzF5vK5PzXqP8KpP5q3nP8F5zH5
-wK5PzF5vK5PzXqP8KpP5q3nP8F5zH5wK5PzF5vK5PzXqP8KpP5q3nP8F5zH5wK5Pz
-F5vK5PzXqP8KpP5q3nP8F5zH5wK5PzF5vK5PzXqP8KpP5q3nP8F5zH5wK5PzF5vK5
-PzXqP8KpP5q3nP8F5zH5wK5PzF5vK5PzXqP8KpP5q3nP8F5zH5wK5PzF5vK5PzXqP8
-KpP5q3nP8F5zH5wK5PzF5vK5PzXqP8KpP5q3nP8F5zH5wK5PzF5vK5PzXqP8KpP5q
-3nP8F5zH5wK5PzF5vK5PzXqP8KpP5q3nP8F5zH5wK5PzF5vK5PzXqP8KpP5q3nP8
-F5zH5wK5PzF5vK5PzXqP8KpP5q3nP8F5zH5wK5PzF5vK5PzXqP8KpP5q3nP8F5zH5
-wK5PzF5vK5PzXqP8KpP5q3nP8F5zH5wK5PzF5vK5PzXqP8KpP5q3nP8F5zH5wK5Pz
-F5vK5PzXqP8KpP5q3nP8F5zH5wK5PzF5vK5PzXqP8KpP5q3nP8F5zH5wK5PzF5vK5
-<span class="pem-footer">-----END CERTIFICATE-----</span>
-    </div>
-
-</main>
 
 </body>
 </html>
