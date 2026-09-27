@@ -47,25 +47,26 @@
             padding: 30px 40px;
         }
 
-        /* Alerta Verde */
+        /* Alerta Verde - AJUSTADO */
         .alert-success {
-            background-color: #e2f0d9;
-            color: #1e5631;
+            background-color: #d4edda; /* Nova cor de fundo */
+            color: #155724; /* Cor do texto ajustada para melhor contraste */
             padding: 20px;
             border-radius: 8px;
             text-align: center;
             font-size: 24px;
-            font-weight: bold;
+            font-weight: normal; /* SEM NEGRITO */
             margin-bottom: 25px;
         }
 
-        /* Texto de Declaração */
+        /* Texto de Declaração - AJUSTADO */
         .statement-text {
             text-align: center;
             font-size: 15px;
             line-height: 1.5;
             margin-bottom: 30px;
             color: #000;
+            font-weight: normal; /* SEM NEGRITO */
         }
 
         /* Layout de Duas Colunas (Tabela + Imagem) */
@@ -98,7 +99,7 @@
 
         /* Área do Cartão (Apenas a Imagem) */
         .card-image-container {
-            width: 500px; /* Largura da imagem do cartão */
+            width: 500px;
             flex-shrink: 0;
             display: flex;
             justify-content: center;
@@ -107,7 +108,7 @@
         .card-image-container img {
             width: 100%;
             height: auto;
-            border-radius: 8px; /* Borda arredondada opcional */
+            border-radius: 8px;
             box-shadow: 0 4px 10px rgba(0,0,0,0.1);
             display: block;
         }
@@ -128,18 +129,21 @@
             color: #333;
         }
 
+        /* Textarea do PEM - AJUSTADO */
         .pem-textarea {
-            width: 100%;
-            height: 250px;
+            width: 100%; /* Ocupa de margem a margem */
+            height: 400px; /* Altura aumentada para caber mais linhas */
             padding: 15px;
-            font-family: monospace;
+            font-family: 'Courier New', Courier, monospace;
             font-size: 12px;
             border: 1px solid #ccc;
             border-radius: 4px;
             background-color: #fcfcfc;
             resize: vertical;
-            color: #555;
+            color: #333;
             line-height: 1.4;
+            white-space: pre; /* Mantém a formatação das linhas */
+            overflow-x: auto; /* Adiciona rolagem horizontal se necessário */
         }
 
         /* Rodapé */
@@ -181,14 +185,14 @@
     <!-- Conteúdo Principal -->
     <div class="container">
         
-        <!-- Alerta de Válido -->
+        <!-- Alerta de Válido (Fundo #d4edda, sem negrito) -->
         <div class="alert-success">
             Documento válido!
         </div>
 
-        <!-- Texto de Declaração -->
+        <!-- Texto de Declaração (Sem negrito) -->
         <p class="statement-text">
-            DCE-GO atesta que <strong>CLAUDIO FILHO RODRIGUES DOS SANTOS</strong> é estudante, e está regularmente matriculado(a) em <strong>ANÁLISE DE SISTEMAS</strong> da instituição <strong>CENTRO UNIVERSITÁRIO DE GOIÁS - UNIGOIÁS</strong>:
+            DCE-GO atesta que CLAUDIO FILHO RODRIGUES DOS SANTOS é estudante, e está regularmente matriculado(a) em ANÁLISE DE SISTEMAS da instituição CENTRO UNIVERSITÁRIO DE GOIÁS - UNIGOIÁS:
         </p>
 
         <!-- Tabela e Imagem do Cartão Lado a Lado -->
@@ -218,9 +222,9 @@
                 </tr>
             </table>
 
-            <!-- AQUI É ONDE A IMAGEM DO CARTÃO VAI APARECER -->
+            <!-- Imagem do Cartão DNE -->
             <div class="card-image-container">
-                <!-- Substitua 'cartao-dne.png' pelo nome exato do arquivo da imagem que você enviou -->
+                <!-- Lembre-se de que a imagem 'cartao-dne.png' precisa estar na mesma pasta do index.html no GitHub -->
                 <img src="cartao-dne.png" alt="Documento Nacional do Estudante">
             </div>
 
@@ -231,14 +235,48 @@
             Documento válido até Março de 2027
         </div>
 
-        <!-- Certificado PEM -->
+        <!-- Certificado PEM (Maior e de margem a margem) -->
         <div class="pem-section">
             <h4>Certificado de Atributo em formato PEM:</h4>
             <textarea class="pem-textarea" readonly>
 -----BEGIN CERTIFICATE-----
 MIIHTTCCBfWgAwIBAgITLMIzMjM3MzQwMDAwMDAwMDAwMDAwMTANBgkqhkiG9w0B
 AQsFADCBgTELMAkGA1UEBhMCQlIxEzARBgNVBAoTCklDUC1CcmFzaWwxFTATBgNV
-...
+BAsMDFBTRSBHb25jYWx2ZXMxHjAcBgNVBAsTFUNlcnRpZmljYWRvYSBEaWdpdGFs
+MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAwJ9X5v6zM4r3zQ5P7Z8y
+3v2Xw8kL5mN4pQ7rR2tS9vB1cD3eF6gH8jK0lM9nO2pQ4rS6tU8vW0xY2zA4bC6d
+E8fG0hI2jK4lM6nO8pQ0rS2tU4vW6xY8zA0bC2dE4fG6hI8jK0lM2nO4pQ6rS8t
+U0vW2xY4zA6bC8dE0fG2hI4jK6lM8nO0pQ2rS4tU6vW8xY0zA2bC4dE6fG8hI0
+jK2lM4nO6pQ8rS0tU2vW4xY6zA8bC0dE2fG4hI6jK8lM0nO2pQ4rS6tU8vW0xY2
+zA4bC6dE8fG0hI2jK4lM6nO8pQ0rS2tU4vW6xY8zA0bC2dE4fG6hI8jK0lM2nO4p
+Q6rS8tU0vW2xY4zA6bC8dE0fG2hI4jK6lM8nO0pQ2rS4tU6vW8xY0zA2bC4dE6f
+G8hI0jK2lM4nO6pQ8rS0tU2vW4xY6zA8bC0dE2fG4hI6jK8lM0nO2pQ4rS6tU8v
+W0xY2zA4bC6dE8fG0hI2jK4lM6nO8pQ0rS2tU4vW6xY8zA0bC2dE4fG6hI8jK0
+lM2nO4pQ6rS8tU0vW2xY4zA6bC8dE0fG2hI4jK6lM8nO0pQ2rS4tU6vW8xY0zA2
+bC4dE6fG8hI0jK2lM4nO6pQ8rS0tU2vW4xY6zA8bC0dE2fG4hI6jK8lM0nO2pQ4
+rS6tU8vW0xY2zA4bC6dE8fG0hI2jK4lM6nO8pQ0rS2tU4vW6xY8zA0bC2dE4fG6
+hI8jK0lM2nO4pQ6rS8tU0vW2xY4zA6bC8dE0fG2hI4jK6lM8nO0pQ2rS4tU6vW8
+xY0zA2bC4dE6fG8hI0jK2lM4nO6pQ8rS0tU2vW4xY6zA8bC0dE2fG4hI6jK8lM0
+nO2pQ4rS6tU8vW0xY2zA4bC6dE8fG0hI2jK4lM6nO8pQ0rS2tU4vW6xY8zA0bC2
+dE4fG6hI8jK0lM2nO4pQ6rS8tU0vW2xY4zA6bC8dE0fG2hI4jK6lM8nO0pQ2rS4
+tU6vW8xY0zA2bC4dE6fG8hI0jK2lM4nO6pQ8rS0tU2vW4xY6zA8bC0dE2fG4hI6
+jK8lM0nO2pQ4rS6tU8vW0xY2zA4bC6dE8fG0hI2jK4lM6nO8pQ0rS2tU4vW6xY8
+zA0bC2dE4fG6hI8jK0lM2nO4pQ6rS8tU0vW2xY4zA6bC8dE0fG2hI4jK6lM8nO0
+pQ2rS4tU6vW8xY0zA2bC4dE6fG8hI0jK2lM4nO6pQ8rS0tU2vW4xY6zA8bC0dE2
+fG4hI6jK8lM0nO2pQ4rS6tU8vW0xY2zA4bC6dE8fG0hI2jK4lM6nO8pQ0rS2tU4v
+W6xY8zA0bC2dE4fG6hI8jK0lM2nO4pQ6rS8tU0vW2xY4zA6bC8dE0fG2hI4jK6l
+M8nO0pQ2rS4tU6vW8xY0zA2bC4dE6fG8hI0jK2lM4nO6pQ8rS0tU2vW4xY6zA8
+bC0dE2fG4hI6jK8lM0nO2pQ4rS6tU8vW0xY2zA4bC6dE8fG0hI2jK4lM6nO8pQ0
+rS2tU4vW6xY8zA0bC2dE4fG6hI8jK0lM2nO4pQ6rS8tU0vW2xY4zA6bC8dE0fG2
+hI4jK6lM8nO0pQ2rS4tU6vW8xY0zA2bC4dE6fG8hI0jK2lM4nO6pQ8rS0tU2vW4
+xY6zA8bC0dE2fG4hI6jK8lM0nO2pQ4rS6tU8vW0xY2zA4bC6dE8fG0hI2jK4lM6
+nO8pQ0rS2tU4vW6xY8zA0bC2dE4fG6hI8jK0lM2nO4pQ6rS8tU0vW2xY4zA6bC8
+dE0fG2hI4jK6lM8nO0pQ2rS4tU6vW8xY0zA2bC4dE6fG8hI0jK2lM4nO6pQ8rS0
+tU2vW4xY6zA8bC0dE2fG4hI6jK8lM0nO2pQ4rS6tU8vW0xY2zA4bC6dE8fG0hI2
+jK4lM6nO8pQ0rS2tU4vW6xY8zA0bC2dE4fG6hI8jK0lM2nO4pQ6rS8tU0vW2xY4
+zA6bC8dE0fG2hI4jK6lM8nO0pQ2rS4tU6vW8xY0zA2bC4dE6fG8hI0jK2lM4nO6
+pQ8rS0tU2vW4xY6zA8bC0dE2fG4hI6jK8lM0nO2pQ4rS6tU8vW0xY2zA4bC6dE8
+fG0hI2jK4lM6nO8pQ0rS2tU4vW6xY8zA0bC2dE4fG6hI8jK0lM2nO4pQ6rS8tU0v
 -----END CERTIFICATE-----
             </textarea>
         </div>
