@@ -21,7 +21,7 @@
         .header {
             background-color: #0d47a1;
             color: #fff;
-            padding: 15px 30px;
+            padding: 15px 20px;
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -33,28 +33,34 @@
             align-items: center;
             gap: 10px;
         }
-        .header-logo span { font-size: 24px; }
+        .header-logo span { font-size: 20px; }
+        
+        /* Menu Hambúrguer (Visível apenas no celular) */
+        .header-menu {
+            display: none;
+            font-size: 24px;
+            cursor: pointer;
+        }
         .header-nav { display: flex; gap: 25px; font-size: 14px; }
         .header-nav a { color: #fff; text-decoration: none; cursor: pointer; }
 
         /* Container Principal */
         .container {
             max-width: 1100px;
-            margin: 30px auto;
+            margin: 0 auto;
             background: #fff;
-            border-radius: 8px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
-            padding: 30px 40px;
+            padding: 20px;
+            min-height: 100vh;
         }
 
         /* Alerta Verde - AJUSTADO */
         .alert-success {
-            background-color: #d4edda; /* Nova cor de fundo */
-            color: #155724; /* Cor do texto ajustada para melhor contraste */
+            background-color: #d4edda; /* Cor de fundo solicitada */
+            color: #155724;
             padding: 20px;
             border-radius: 8px;
             text-align: center;
-            font-size: 24px;
+            font-size: 22px;
             font-weight: normal; /* SEM NEGRITO */
             margin-bottom: 25px;
         }
@@ -64,24 +70,44 @@
             text-align: center;
             font-size: 15px;
             line-height: 1.5;
-            margin-bottom: 30px;
+            margin-bottom: 25px;
             color: #000;
             font-weight: normal; /* SEM NEGRITO */
         }
 
-        /* Layout de Duas Colunas (Tabela + Imagem) */
+        /* Layout Principal (Muda para coluna no celular) */
         .main-content {
             display: flex;
-            gap: 40px;
-            align-items: flex-start;
+            flex-direction: column; /* Coluna por padrão para mobile-first */
+            gap: 20px;
+            align-items: center;
             margin-bottom: 20px;
+        }
+
+        /* Imagem do Cartão */
+        .card-image-container {
+            width: 100%;
+            max-width: 500px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .card-image-container img {
+            width: 100%;
+            height: auto;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            display: block;
         }
 
         /* Tabela de Detalhes */
         .details-table {
-            flex: 1;
-            border-collapse: collapse;
             width: 100%;
+            border-collapse: collapse;
+            background: #fff;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
         }
         .details-table td {
             padding: 15px;
@@ -95,22 +121,6 @@
             width: 35%;
             color: #555;
             background-color: #fafafa;
-        }
-
-        /* Área do Cartão (Apenas a Imagem) */
-        .card-image-container {
-            width: 500px;
-            flex-shrink: 0;
-            display: flex;
-            justify-content: center;
-        }
-
-        .card-image-container img {
-            width: 100%;
-            height: auto;
-            border-radius: 8px;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-            display: block;
         }
 
         /* Data de Validade e PEM */
@@ -129,21 +139,21 @@
             color: #333;
         }
 
-        /* Textarea do PEM - AJUSTADO */
+        /* Textarea do PEM - AJUSTADO PARA FICAR LARGO E ALTO */
         .pem-textarea {
             width: 100%; /* Ocupa de margem a margem */
-            height: 400px; /* Altura aumentada para caber mais linhas */
+            height: 400px; /* Altura grande para caber o código */
             padding: 15px;
             font-family: 'Courier New', Courier, monospace;
-            font-size: 12px;
+            font-size: 11px;
             border: 1px solid #ccc;
             border-radius: 4px;
             background-color: #fcfcfc;
             resize: vertical;
             color: #333;
             line-height: 1.4;
-            white-space: pre; /* Mantém a formatação das linhas */
-            overflow-x: auto; /* Adiciona rolagem horizontal se necessário */
+            white-space: pre-wrap; /* Quebra as linhas longas automaticamente */
+            word-wrap: break-word;
         }
 
         /* Rodapé */
@@ -156,15 +166,35 @@
             margin-top: 40px;
         }
 
-        /* Ajuste para telas menores (Tablets e Celulares) */
-        @media (max-width: 900px) {
-            .container { padding: 20px; margin: 15px; }
-            .main-content { flex-direction: column; align-items: center; gap: 20px; }
-            .details-table { width: 100%; }
-            .card-image-container { width: 100%; max-width: 500px; }
-            .statement-text { font-size: 14px; }
-            .header { padding: 15px 20px; }
-            .header-nav { display: none; }
+        /* ----- AJUSTES PARA TELAS GRANDES (DESKTOP) ----- */
+        @media (min-width: 900px) {
+            .container {
+                margin: 30px auto;
+                border-radius: 8px;
+                box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+                padding: 30px 40px;
+                min-height: auto;
+            }
+            .main-content {
+                flex-direction: row;
+                align-items: flex-start;
+                gap: 40px;
+            }
+            .header-menu { display: none; }
+            .header-nav { display: flex; }
+        }
+
+        /* ----- AJUSTES PARA TELAS PEQUENAS (CELULAR) ----- */
+        @media (max-width: 899px) {
+            .header-nav { display: none; } /* Esconde o menu de links */
+            .header-menu { display: block; } /* Mostra o ícone hambúrguer */
+            .container { padding: 15px; }
+            .alert-success { font-size: 18px; padding: 15px; }
+            .statement-text { font-size: 14px; text-align: left; } /* Alinhamento justificado ou à esquerda fica melhor no celular */
+            .card-image-container { max-width: 100%; }
+            .details-table td { padding: 12px; font-size: 13px; }
+            .details-table td:first-child { width: 40%; }
+            .pem-textarea { height: 300px; font-size: 10px; }
         }
     </style>
 </head>
@@ -175,6 +205,7 @@
         <div class="header-logo">
             <span>🎓</span> DCE-GO
         </div>
+        <div class="header-menu">☰</div> <!-- Ícone de Menu -->
         <div class="header-nav">
             <a>Início</a>
             <a>Emissão</a>
@@ -185,7 +216,7 @@
     <!-- Conteúdo Principal -->
     <div class="container">
         
-        <!-- Alerta de Válido (Fundo #d4edda, sem negrito) -->
+        <!-- Alerta de Válido -->
         <div class="alert-success">
             Documento válido!
         </div>
@@ -195,10 +226,16 @@
             DCE-GO atesta que CLAUDIO FILHO RODRIGUES DOS SANTOS é estudante, e está regularmente matriculado(a) em ANÁLISE DE SISTEMAS da instituição CENTRO UNIVERSITÁRIO DE GOIÁS - UNIGOIÁS:
         </p>
 
-        <!-- Tabela e Imagem do Cartão Lado a Lado -->
+        <!-- Imagem e Tabela -->
         <div class="main-content">
             
-            <!-- Tabela de Dados -->
+            <!-- Imagem do Cartão DNE (Aparece primeiro no celular) -->
+            <div class="card-image-container">
+                <!-- Lembre-se: 'cartao-dne.png' precisa estar na mesma pasta do index.html -->
+                <img src="cartao-dne.png" alt="Documento Nacional do Estudante">
+            </div>
+
+            <!-- Tabela de Dados (Aparece abaixo da imagem no celular) -->
             <table class="details-table">
                 <tr>
                     <td>Nome:</td>
@@ -222,12 +259,6 @@
                 </tr>
             </table>
 
-            <!-- Imagem do Cartão DNE -->
-            <div class="card-image-container">
-                <!-- Lembre-se de que a imagem 'cartao-dne.png' precisa estar na mesma pasta do index.html no GitHub -->
-                <img src="cartao-dne.png" alt="Documento Nacional do Estudante">
-            </div>
-
         </div>
 
         <!-- Data de Validade -->
@@ -235,7 +266,7 @@
             Documento válido até Março de 2027
         </div>
 
-        <!-- Certificado PEM (Maior e de margem a margem) -->
+        <!-- Certificado PEM -->
         <div class="pem-section">
             <h4>Certificado de Atributo em formato PEM:</h4>
             <textarea class="pem-textarea" readonly>
