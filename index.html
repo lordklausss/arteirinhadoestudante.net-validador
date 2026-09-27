@@ -2,279 +2,252 @@
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
-    <title>Documento Nacional do Estudante</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Validação de Documento - DCE-GO</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #e9ecef;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
-        }
-
-        .card {
-            width: 800px;
-            height: 500px;
-            background: linear-gradient(135deg, #f4f6f9 0%, #e2e8f0 100%);
-            border-radius: 10px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
-            position: relative;
-            overflow: hidden;
-            padding: 30px;
+        * {
             box-sizing: border-box;
-            display: flex;
-            flex-direction: column;
+            margin: 0;
+            padding: 0;
         }
 
-        /* Formas geométricas de fundo */
-        .shape-purple {
-            position: absolute;
-            bottom: -50px;
-            left: -50px;
-            width: 300px;
-            height: 300px;
-            background-color: #7b2cbf;
-            border-radius: 50%;
-            opacity: 0.8;
-            z-index: 0;
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background-color: #f4f6f9;
+            color: #333;
         }
 
-        .shape-blue {
-            position: absolute;
-            bottom: -80px;
-            right: -50px;
-            width: 400px;
-            height: 200px;
-            background-color: #1e3a8a;
-            transform: rotate(-15deg);
-            z-index: 0;
-        }
-
+        /* Cabeçalho Azul */
         .header {
+            background-color: #0d47a1;
+            color: #fff;
+            padding: 15px 30px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            z-index: 1;
+        }
+        .header-logo {
+            font-weight: bold;
+            font-size: 18px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .header-logo span { font-size: 24px; }
+        .header-nav { display: flex; gap: 25px; font-size: 14px; }
+        .header-nav a { color: #fff; text-decoration: none; cursor: pointer; }
+
+        /* Container Principal */
+        .container {
+            max-width: 1100px;
+            margin: 30px auto;
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+            padding: 30px 40px;
+        }
+
+        /* Alerta Verde */
+        .alert-success {
+            background-color: #e2f0d9;
+            color: #1e5631;
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 25px;
+        }
+
+        /* Texto de Declaração */
+        .statement-text {
+            text-align: center;
+            font-size: 15px;
+            line-height: 1.5;
+            margin-bottom: 30px;
+            color: #000;
+        }
+
+        /* Layout de Duas Colunas (Tabela + Imagem) */
+        .main-content {
+            display: flex;
+            gap: 40px;
+            align-items: flex-start;
             margin-bottom: 20px;
         }
 
-        .logo-dne {
-            font-size: 32px;
-            font-weight: bold;
-            color: #1e3a8a;
-            font-family: 'Arial Black', sans-serif;
-            letter-spacing: -2px;
-            margin: 0;
-        }
-
-        .logo-dne span {
-            font-weight: normal;
-            font-size: 14px;
-            display: block;
-            letter-spacing: 0;
-            color: #1e3a8a;
-            margin-top: -5px;
-        }
-
-        .header-logos {
-            display: flex;
-            gap: 10px;
-            font-size: 12px;
-            font-weight: bold;
-            color: #1e3a8a;
-        }
-
-        .content-area {
-            display: flex;
-            z-index: 1;
+        /* Tabela de Detalhes */
+        .details-table {
             flex: 1;
-        }
-
-        .photo-container {
-            width: 180px;
-            height: 240px;
-            background-color: #ccc;
-            border-radius: 5px;
-            overflow: hidden;
-            margin-right: 20px;
-            border: 2px solid #fff;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-        }
-
-        .photo-container img {
+            border-collapse: collapse;
             width: 100%;
-            height: 100%;
-            object-fit: cover;
         }
-
-        .info-container {
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            justify-content: flex-start;
-            padding-top: 10px;
-        }
-
-        /* Estilos dos textos solicitados (sem negrito) */
-        .name {
-            font-size: 24px;
-            font-weight: normal; /* Sem negrito */
-            color: #000;
-            margin: 0 0 20px 0;
-        }
-
-        .field-group {
-            margin-bottom: 10px;
-        }
-
-        .field-label {
-            font-weight: normal; /* Sem negrito */
-            color: #000;
-            font-size: 16px;
-        }
-
-        .field-value {
-            font-weight: normal; /* Sem negrito */
-            color: #000;
-            font-size: 16px;
-        }
-
-        .course {
-            font-size: 18px;
-            font-weight: normal; /* Sem negrito */
-            color: #000;
-            margin-top: 20px;
-            margin-bottom: 5px;
-        }
-
-        .institution {
-            font-size: 18px;
-            font-weight: normal; /* Sem negrito */
-            color: #000;
-        }
-
-        .new-fields {
-            margin-top: 15px;
-            font-size: 14px;
-            font-weight: normal; /* Sem negrito */
-            color: #000;
-        }
-
-        .right-panel {
-            width: 180px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: space-between;
-            margin-left: 20px;
-            background-color: rgba(255, 255, 255, 0.9);
+        .details-table td {
             padding: 15px;
-            border-radius: 5px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-            z-index: 2;
-        }
-
-        .qr-code {
-            width: 130px;
-            height: 130px;
-            background-color: #000;
-            /* Placeholder para o QR Code */
-            background-image: repeating-linear-gradient(45deg, #fff 25%, transparent 25%, transparent 75%, #fff 75%, #fff), repeating-linear-gradient(45deg, #fff 25%, #000 25%, #000 75%, #fff 75%, #fff);
-            background-position: 0 0, 10px 10px;
-            background-size: 20px 20px;
-            margin-bottom: 10px;
-        }
-
-        .cod-uso {
+            border-bottom: 1px solid #eee;
             font-size: 14px;
-            text-align: center;
-            color: #555;
-            font-weight: normal;
+            color: #333;
         }
-
-        .cod-value {
-            font-size: 16px;
-            font-weight: normal;
-            color: #000;
-            margin-top: 5px;
-        }
-
-        .year {
-            font-size: 36px;
+        .details-table tr:last-child td { border-bottom: none; }
+        .details-table td:first-child {
             font-weight: bold;
-            color: #1e3a8a;
+            width: 35%;
+            color: #555;
+            background-color: #fafafa;
+        }
+
+        /* Área do Cartão (Apenas a Imagem) */
+        .card-image-container {
+            width: 500px; /* Largura da imagem do cartão */
+            flex-shrink: 0;
+            display: flex;
+            justify-content: center;
+        }
+
+        .card-image-container img {
+            width: 100%;
+            height: auto;
+            border-radius: 8px; /* Borda arredondada opcional */
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            display: block;
+        }
+
+        /* Data de Validade e PEM */
+        .validity-text {
+            text-align: center;
+            color: #0d47a1;
+            font-weight: bold;
+            font-size: 15px;
             margin-top: 20px;
+            margin-bottom: 30px;
+        }
+
+        .pem-section h4 {
+            font-size: 16px;
+            margin-bottom: 10px;
+            color: #333;
+        }
+
+        .pem-textarea {
+            width: 100%;
+            height: 250px;
+            padding: 15px;
+            font-family: monospace;
+            font-size: 12px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            background-color: #fcfcfc;
+            resize: vertical;
+            color: #555;
+            line-height: 1.4;
+        }
+
+        /* Rodapé */
+        .footer {
+            background-color: #1a237e;
+            color: #fff;
+            text-align: center;
+            padding: 15px;
+            font-size: 12px;
+            margin-top: 40px;
+        }
+
+        /* Ajuste para telas menores (Tablets e Celulares) */
+        @media (max-width: 900px) {
+            .container { padding: 20px; margin: 15px; }
+            .main-content { flex-direction: column; align-items: center; gap: 20px; }
+            .details-table { width: 100%; }
+            .card-image-container { width: 100%; max-width: 500px; }
+            .statement-text { font-size: 14px; }
+            .header { padding: 15px 20px; }
+            .header-nav { display: none; }
         }
     </style>
 </head>
 <body>
 
-    <div class="card">
-        <!-- Formas de fundo -->
-        <div class="shape-purple"></div>
-        <div class="shape-blue"></div>
+    <!-- Cabeçalho -->
+    <div class="header">
+        <div class="header-logo">
+            <span>🎓</span> DCE-GO
+        </div>
+        <div class="header-nav">
+            <a>Início</a>
+            <a>Emissão</a>
+            <a>Validação de Certificado</a>
+        </div>
+    </div>
 
-        <!-- Cabeçalho -->
-        <div class="header">
-            <div class="logo-dne">
-                dne
-                <span>Documento<br>Nacional<br>do Estudante</span>
-            </div>
-            <div class="header-logos">
-                <span>UNE</span>
-                <span>UBES</span>
-                <span>ANPG</span>
-            </div>
+    <!-- Conteúdo Principal -->
+    <div class="container">
+        
+        <!-- Alerta de Válido -->
+        <div class="alert-success">
+            Documento válido!
         </div>
 
-        <!-- Área Principal -->
-        <div class="content-area">
-            <!-- Foto do Aluno -->
-            <div class="photo-container">
-                <!-- Substitua o 'src' pela imagem real ou Base64 -->
-                <img src="sua-foto.jpg" alt="Foto do Estudante">
+        <!-- Texto de Declaração -->
+        <p class="statement-text">
+            DCE-GO atesta que <strong>CLAUDIO FILHO RODRIGUES DOS SANTOS</strong> é estudante, e está regularmente matriculado(a) em <strong>ANÁLISE DE SISTEMAS</strong> da instituição <strong>CENTRO UNIVERSITÁRIO DE GOIÁS - UNIGOIÁS</strong>:
+        </p>
+
+        <!-- Tabela e Imagem do Cartão Lado a Lado -->
+        <div class="main-content">
+            
+            <!-- Tabela de Dados -->
+            <table class="details-table">
+                <tr>
+                    <td>Nome:</td>
+                    <td>CLAUDIO FILHO RODRIGUES DOS SANTOS</td>
+                </tr>
+                <tr>
+                    <td>Instituição:</td>
+                    <td>CENTRO UNIVERSITÁRIO DE GOIÁS - UNIGOIÁS</td>
+                </tr>
+                <tr>
+                    <td>Curso:</td>
+                    <td>ANÁLISE DE SISTEMAS</td>
+                </tr>
+                <tr>
+                    <td>Documento de Identificação:</td>
+                    <td>701.915.551-00</td>
+                </tr>
+                <tr>
+                    <td>Emissor:</td>
+                    <td>SSP/GO</td>
+                </tr>
+            </table>
+
+            <!-- AQUI É ONDE A IMAGEM DO CARTÃO VAI APARECER -->
+            <div class="card-image-container">
+                <!-- Substitua 'cartao-dne.png' pelo nome exato do arquivo da imagem que você enviou -->
+                <img src="cartao-dne.png" alt="Documento Nacional do Estudante">
             </div>
 
-            <!-- Informações do Aluno -->
-            <div class="info-container">
-                <!-- Nome (Sem Negrito) -->
-                <h1 class="name">CLAUDIO FILHO RODRIGUES</h1>
-
-                <!-- CPF e Data -->
-                <div class="field-group">
-                    <span class="field-label">CPF/CIN: </span>
-                    <span class="field-value">701.915.551-00</span>
-                </div>
-                <div class="field-group">
-                    <span class="field-label">SSP/GO</span>
-                </div>
-                <div class="field-group">
-                    <span class="field-label">Data nasc.: </span>
-                    <span class="field-value">12/09/1996</span>
-                </div>
-
-                <!-- Curso e Instituição (Sem Negrito) -->
-                <div class="course">ANÁLISE DE SISTEMAS</div>
-                <div class="institution">CENTRO UNIVERSITÁRIO UNIGOIAS</div>
-
-                <!-- Novos campos adicionados (Sem Negrito) -->
-                <div class="new-fields">
-                    Certificado de Atributo em formato PEM:
-                </div>
-            </div>
-
-            <!-- Painel Direito (QR Code e Código) -->
-            <div class="right-panel">
-                <div class="qr-code"></div>
-                <div class="cod-uso">
-                    Cod. uso / CIE
-                    <div class="cod-value">26000026327</div>
-                </div>
-                <div class="year">2026</div>
-            </div>
         </div>
+
+        <!-- Data de Validade -->
+        <div class="validity-text">
+            Documento válido até Março de 2027
+        </div>
+
+        <!-- Certificado PEM -->
+        <div class="pem-section">
+            <h4>Certificado de Atributo em formato PEM:</h4>
+            <textarea class="pem-textarea" readonly>
+-----BEGIN CERTIFICATE-----
+MIIHTTCCBfWgAwIBAgITLMIzMjM3MzQwMDAwMDAwMDAwMDAwMTANBgkqhkiG9w0B
+AQsFADCBgTELMAkGA1UEBhMCQlIxEzARBgNVBAoTCklDUC1CcmFzaWwxFTATBgNV
+...
+-----END CERTIFICATE-----
+            </textarea>
+        </div>
+
+    </div>
+
+    <!-- Rodapé -->
+    <div class="footer">
+        &copy; 2026 DCE-GO. Todos os direitos reservados.
     </div>
 
 </body>
