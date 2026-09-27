@@ -1,0 +1,577 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Validação da Carteira - DCE-GO</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Roboto, Arial, sans-serif;
+}
+
+body {
+    background: #f0f2f5;
+    color: #333;
+    min-height: 100vh;
+}
+
+/* ===== HEADER ===== */
+.topbar {
+    background: #1b5a95;
+    color: #ffffff;
+    padding: 14px 30px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+}
+
+.topbar-left {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.dce-logo {
+    width: 44px;
+    height: 44px;
+    background: #ffffff;
+    border-radius: 50%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: #1b5a95;
+    font-weight: 800;
+    font-size: 0.75rem;
+    line-height: 1;
+}
+
+.dce-logo span {
+    font-size: 0.55rem;
+    margin-top: 1px;
+}
+
+.topbar-left .brand {
+    font-size: 1.15rem;
+    font-weight: 700;
+}
+
+.topbar-center {
+    font-size: 1rem;
+    font-weight: 500;
+}
+
+.topbar-right {
+    font-size: 1rem;
+    font-weight: 500;
+}
+
+/* ===== WRAPPER ===== */
+.wrapper {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 30px 20px 60px;
+}
+
+/* ===== BANNER VERDE ===== */
+.valid-banner {
+    background: #d8e9d9;
+    border-radius: 8px;
+    padding: 28px 20px;
+    text-align: center;
+    margin-bottom: 25px;
+}
+
+.valid-banner h1 {
+    color: #2e7d32;
+    font-size: 2rem;
+    font-weight: 700;
+}
+
+/* ===== TEXTO ATESTADO ===== */
+.attest-text {
+    text-align: center;
+    font-size: 1rem;
+    color: #333;
+    margin: 20px 0 30px;
+    line-height: 1.6;
+    padding: 0 10px;
+}
+
+.attest-text strong {
+    font-weight: 700;
+}
+
+/* ===== LAYOUT TABELA + CARD ===== */
+.info-layout {
+    display: flex;
+    gap: 25px;
+    align-items: flex-start;
+    margin-bottom: 25px;
+}
+
+/* Tabela de informações */
+.info-table {
+    flex: 1 1 55%;
+    background: #ffffff;
+    border-radius: 6px;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+}
+
+.info-table .row {
+    display: grid;
+    grid-template-columns: 40% 60%;
+    border-bottom: 1px solid #eee;
+}
+
+.info-table .row:last-child {
+    border-bottom: none;
+}
+
+.info-table .row .label {
+    background: #f7f9fc;
+    padding: 16px 20px;
+    font-weight: 700;
+    color: #333;
+    text-align: right;
+    font-size: 0.95rem;
+    border-right: 1px solid #eee;
+}
+
+.info-table .row .value {
+    padding: 16px 20px;
+    font-weight: 700;
+    color: #333;
+    font-size: 0.95rem;
+    background: #ffffff;
+    word-break: break-word;
+}
+
+/* Card preview */
+.card-preview {
+    flex: 1 1 45%;
+    display: flex;
+    justify-content: center;
+}
+
+.student-card {
+    width: 100%;
+    max-width: 400px;
+    border-radius: 14px;
+    overflow: hidden;
+    background: #ffffff;
+    border: 1px solid #d0d0d0;
+    box-shadow: 0 4px 14px rgba(0,0,0,0.1);
+}
+
+.card-top {
+    background: #ffffff;
+    padding: 12px 16px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid #eee;
+}
+
+.card-top .dne-logo {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: none;
+    border-radius: 0;
+    width: auto;
+    height: auto;
+}
+
+.card-top .dne-mark {
+    font-size: 1.7rem;
+    font-weight: 800;
+    color: #1b5a95;
+    letter-spacing: -1px;
+    line-height: 1;
+}
+
+.card-top .dne-text {
+    font-size: 0.55rem;
+    color: #1b5a95;
+    font-weight: 600;
+    line-height: 1.15;
+    text-transform: uppercase;
+}
+
+.card-logos {
+    display: flex;
+    gap: 8px;
+}
+
+.logo-pill {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 0.65rem;
+    font-weight: 700;
+    color: #1b5a95;
+}
+
+.logo-pill i {
+    font-size: 0.85rem;
+}
+
+.card-body {
+    display: flex;
+    padding: 14px 16px;
+    gap: 14px;
+}
+
+.card-photo {
+    width: 85px;
+    height: 105px;
+    background: #e0e0e0;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    overflow: hidden;
+}
+
+.card-photo i {
+    font-size: 3.2rem;
+    color: #999;
+}
+
+.card-info {
+    flex: 1;
+    min-width: 0;
+}
+
+.card-name {
+    font-size: 0.92rem;
+    font-weight: 700;
+    color: #333;
+    margin-bottom: 6px;
+    text-transform: uppercase;
+    line-height: 1.2;
+    word-break: break-word;
+}
+
+.card-line {
+    font-size: 0.68rem;
+    color: #555;
+    line-height: 1.5;
+}
+
+.card-line strong {
+    color: #333;
+    font-weight: 700;
+}
+
+.card-course {
+    margin-top: 8px;
+    font-size: 0.68rem;
+    color: #1b5a95;
+    font-weight: 700;
+    text-transform: uppercase;
+    line-height: 1.3;
+}
+
+.card-qr {
+    width: 75px;
+    height: 75px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.card-qr i {
+    font-size: 3rem;
+    color: #333;
+}
+
+.card-bottom {
+    background: #1b5a95;
+    color: #ffffff;
+    padding: 6px 16px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 0.72rem;
+    font-weight: 700;
+}
+
+.card-bottom .card-code {
+    font-family: 'Courier New', monospace;
+}
+
+.card-bottom .card-year {
+    font-size: 1rem;
+    font-weight: 800;
+    letter-spacing: 1px;
+}
+
+/* ===== VALIDADE ===== */
+.validity-line {
+    text-align: center;
+    font-size: 1.05rem;
+    color: #1b5a95;
+    font-weight: 700;
+    margin: 25px 0 35px;
+}
+
+/* ===== PEM ===== */
+.pem-title {
+    font-size: 1.35rem;
+    font-weight: 700;
+    color: #333;
+    margin-bottom: 15px;
+}
+
+.pem-box {
+    border: 1px solid #d0d0d0;
+    border-radius: 4px;
+    padding: 20px 25px;
+    background: #fafafa;
+    font-family: 'Courier New', monospace;
+    font-size: 0.68rem;
+    color: #333;
+    line-height: 1.7;
+    word-break: break-all;
+    white-space: pre-wrap;
+    max-height: 320px;
+    overflow-y: auto;
+}
+
+.pem-box .pem-header,
+.pem-box .pem-footer {
+    display: block;
+    text-align: center;
+    font-weight: 700;
+    margin: 8px 0;
+}
+
+/* ===== RESPONSIVO ===== */
+@media (max-width: 850px) {
+    .info-layout {
+        flex-direction: column;
+    }
+    
+    .info-table,
+    .card-preview {
+        flex: 1 1 100%;
+        width: 100%;
+    }
+    
+    .student-card {
+        max-width: 100%;
+    }
+}
+
+@media (max-width: 600px) {
+    .topbar {
+        padding: 10px 15px;
+        flex-wrap: wrap;
+        gap: 8px;
+    }
+    
+    .topbar-left .brand { font-size: 0.95rem; }
+    .topbar-center { 
+        font-size: 0.8rem; 
+        order: 3; 
+        flex: 1 1 100%; 
+        text-align: center; 
+    }
+    .topbar-right { font-size: 0.8rem; }
+    
+    .valid-banner h1 { font-size: 1.4rem; }
+    .attest-text { font-size: 0.88rem; }
+    
+    .info-table .row .label,
+    .info-table .row .value {
+        padding: 12px 14px;
+        font-size: 0.82rem;
+    }
+    
+    .pem-title { font-size: 1.1rem; }
+    .pem-box { font-size: 0.6rem; padding: 15px; }
+    
+    .card-body { flex-direction: column; }
+    .card-photo { 
+        width: 70px; 
+        height: 85px; 
+        align-self: center; 
+    }
+    .card-qr { 
+        align-self: center; 
+    }
+}
+</style>
+</head>
+<body>
+
+<!-- ============ HEADER ============ -->
+<header class="topbar">
+    <div class="topbar-left">
+        <div class="dce-logo">
+            DCE<span>GO</span>
+        </div>
+        <div class="brand">DCE-GO</div>
+    </div>
+    <div class="topbar-center">Lei da Meia Entrada</div>
+    <div class="topbar-right">Validação da Carteira</div>
+</header>
+
+<!-- ============ CONTEÚDO ============ -->
+<main class="wrapper">
+
+    <!-- Banner verde -->
+    <div class="valid-banner">
+        <h1>Documento válido!</h1>
+    </div>
+
+    <!-- Texto atestado -->
+    <p class="attest-text">
+        DCE-GO atesta que <strong>CLAUDIO FILHO RODRIGUES</strong> é estudante, e está regularmente matriculado(a) em <strong>ANÁLISE DE SISTEMAS</strong> da instituição <strong>CENTRO UNIVERSITÁRIO UNIGOIAS</strong>!
+    </p>
+
+    <!-- Tabela + Carteirinha -->
+    <div class="info-layout">
+
+        <!-- Tabela -->
+        <div class="info-table">
+            <div class="row">
+                <div class="label">Nome:</div>
+                <div class="value">CLAUDIO FILHO RODRIGUES</div>
+            </div>
+            <div class="row">
+                <div class="label">Instituição:</div>
+                <div class="value">CENTRO UNIVERSITÁRIO UNIGOIAS</div>
+            </div>
+            <div class="row">
+                <div class="label">Curso:</div>
+                <div class="value">ANÁLISE DE SISTEMAS</div>
+            </div>
+            <div class="row">
+                <div class="label">Documento de Identificação:</div>
+                <div class="value">701.915.551-00</div>
+            </div>
+            <div class="row">
+                <div class="label">Emissor:</div>
+                <div class="value">SSP/GO</div>
+            </div>
+        </div>
+
+        <!-- Carteirinha -->
+        <div class="card-preview">
+            <div class="student-card">
+
+                <div class="card-top">
+                    <div class="dne-logo">
+                        <div class="dne-mark">dhe</div>
+                        <div class="dne-text">
+                            Documento<br>Nacional<br>do Estudante
+                        </div>
+                    </div>
+                    <div class="card-logos">
+                        <div class="logo-pill"><i class="fas fa-graduation-cap"></i> UDE</div>
+                        <div class="logo-pill"><i class="fas fa-users"></i> ANPG</div>
+                    </div>
+                </div>
+
+                <div class="card-body">
+                    <div class="card-photo">
+                        <i class="fas fa-user"></i>
+                    </div>
+
+                    <div class="card-info">
+                        <div class="card-name">CLAUDIO FILHO RODRIGUES</div>
+                        <div class="card-line"><strong>CPF/CN:</strong> 701.915.551-00</div>
+                        <div class="card-line"><strong>Data nasc.:</strong> 01/07/2005</div>
+                        <div class="card-course">
+                            ANÁLISE DE SISTEMAS<br>
+                            CENTRO UNIVERSITÁRIO UNIGOIAS
+                        </div>
+                    </div>
+
+                    <div class="card-qr">
+                        <i class="fas fa-qrcode"></i>
+                    </div>
+                </div>
+
+                <div class="card-bottom">
+                    <span class="card-code">Cod. uso / CIE 26000026322</span>
+                    <span class="card-year">2026</span>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Linha de validade -->
+    <p class="validity-line">Documento válido até Março de 2027</p>
+
+    <!-- Certificado PEM -->
+    <h2 class="pem-title">Certificado de Atributo em formato PEM:</h2>
+
+    <div class="pem-box">
+<span class="pem-header">-----BEGIN CERTIFICATE-----</span>
+MIIHHTCCBwOgAwIBAgIITLMzBKx7OgYwDQYJKoZIhvcNAQELBQAwgYkxCzAJBgNV
+BAYTAkJSMRMwEQYDVQQIDApEaXN0cml0byBGZWRlcmFsMRIwEAYDVQQHDAlicmFz
+aWxpYTEbMBkGA1UECgwST3JnYW5pemFjYW8gZGEgU29jaWVkYWRlIENpdmlsIFBh
+cnRpY2lwYXRpdmEgLSBPU0NQMSQwIgYDVQQDDBtBdXRvcmlkYWRlIENlcnRpZmlj
+YWRvcmEgT3NjIEJyYXNpbDAeFw0yNTA5MTcxOTAwMDBaFw0yNjA5MTcxOTAwMDBa
+MIGJMQswCQYDVQQGEwJCUjETMBEGA1UECAwKRGlzdHJpdG8gRmVkZXJhbDESMBAG
+A1UEBwwJQnJhc2lsaWExGzAZBgNVBAoMEk9yZ2FuaXphY2FvIGRhIFNvY2llZGFk
+ZSBDaXZpbCBQYXJ0aWNpcGF0aXZhIC0gT1NDUDEkMCIGA1UEAwwbQXV0b3JpZGFk
+ZSBDZXJ0aWZpY2Fkb3JhIE9zYyBCcmFzaWwwggIiMA0GCSqGSIb3DQEBAQUAA4IC
+DwAwggIKAoICAQDF7xHmmdJ3bP4Dv5jPzFhVgZ5P5WQvKf5F5NqVQfHhV8jK5PzX
+qP8KpP5q3nP8F5zH5wK5PzF5vK5PzXqP8KpP5q3nP8F5zH5wK5PzF5vK5PzXqP8K
+pP5q3nP8F5zH5wK5PzF5vK5PzXqP8KpP5q3nP8F5zH5wK5PzF5vK5PzXqP8KpP5q
+3nP8F5zH5wK5PzF5vK5PzXqP8KpP5q3nP8F5zH5wK5PzF5vK5PzXqP8KpP5q3nP8
+F5zH5wK5PzF5vK5PzXqP8KpP5q3nP8F5zH5wK5PzF5vK5PzXqP8KpP5q3nP8F5zH5
+wK5PzF5vK5PzXqP8KpP5q3nP8F5zH5wK5PzF5vK5PzXqP8KpP5q3nP8F5zH5wK5Pz
+F5vK5PzXqP8KpP5q3nP8F5zH5wK5PzF5vK5PzXqP8KpP5q3nP8F5zH5wK5PzF5vK5
+PzXqP8KpP5q3nP8F5zH5wK5PzF5vK5PzXqP8KpP5q3nP8F5zH5wK5PzF5vK5PzXqP8
+KpP5q3nP8F5zH5wK5PzF5vK5PzXqP8KpP5q3nP8F5zH5wK5PzF5vK5PzXqP8KpP5q
+3nP8F5zH5wK5PzF5vK5PzXqP8KpP5q3nP8F5zH5wK5PzF5vK5PzXqP8KpP5q3nP8
+F5zH5wK5PzF5vK5PzXqP8KpP5q3nP8F5zH5wK5PzF5vK5PzXqP8KpP5q3nP8F5zH5
+wK5PzF5vK5PzXqP8KpP5q3nP8F5zH5wK5PzF5vK5PzXqP8KpP5q3nP8F5zH5wK5Pz
+F5vK5PzXqP8KpP5q3nP8F5zH5wK5PzF5vK5PzXqP8KpP5q3nP8F5zH5wK5PzF5vK5
+PzXqP8KpP5q3nP8F5zH5wK5PzF5vK5PzXqP8KpP5q3nP8F5zH5wK5PzF5vK5PzXqP8
+KpP5q3nP8F5zH5wK5PzF5vK5PzXqP8KpP5q3nP8F5zH5wK5PzF5vK5PzXqP8KpP5q
+3nP8F5zH5wK5PzF5vK5PzXqP8KpP5q3nP8F5zH5wK5PzF5vK5PzXqP8KpP5q3nP8
+F5zH5wK5PzF5vK5PzXqP8KpP5q3nP8F5zH5wK5PzF5vK5PzXqP8KpP5q3nP8F5zH5
+wK5PzF5vK5PzXqP8KpP5q3nP8F5zH5wK5PzF5vK5PzXqP8KpP5q3nP8F5zH5wK5Pz
+F5vK5PzXqP8KpP5q3nP8F5zH5wK5PzF5vK5PzXqP8KpP5q3nP8F5zH5wK5PzF5vK5
+PzXqP8KpP5q3nP8F5zH5wK5PzF5vK5PzXqP8KpP5q3nP8F5zH5wK5PzF5vK5PzXqP8
+KpP5q3nP8F5zH5wK5PzF5vK5PzXqP8KpP5q3nP8F5zH5wK5PzF5vK5PzXqP8KpP5q
+3nP8F5zH5wK5PzF5vK5PzXqP8KpP5q3nP8F5zH5wK5PzF5vK5PzXqP8KpP5q3nP8
+F5zH5wK5PzF5vK5PzXqP8KpP5q3nP8F5zH5wK5PzF5vK5PzXqP8KpP5q3nP8F5zH5
+wK5PzF5vK5PzXqP8KpP5q3nP8F5zH5wK5PzF5vK5PzXqP8KpP5q3nP8F5zH5wK5Pz
+F5vK5PzXqP8KpP5q3nP8F5zH5wK5PzF5vK5PzXqP8KpP5q3nP8F5zH5wK5PzF5vK5
+PzXqP8KpP5q3nP8F5zH5wK5PzF5vK5PzXqP8KpP5q3nP8F5zH5wK5PzF5vK5PzXqP8
+KpP5q3nP8F5zH5wK5PzF5vK5PzXqP8KpP5q3nP8F5zH5wK5PzF5vK5PzXqP8KpP5q
+3nP8F5zH5wK5PzF5vK5PzXqP8KpP5q3nP8F5zH5wK5PzF5vK5PzXqP8KpP5q3nP8
+F5zH5wK5PzF5vK5PzXqP8KpP5q3nP8F5zH5wK5PzF5vK5PzXqP8KpP5q3nP8F5zH5
+wK5PzF5vK5PzXqP8KpP5q3nP8F5zH5wK5PzF5vK5PzXqP8KpP5q3nP8F5zH5wK5Pz
+F5vK5PzXqP8KpP5q3nP8F5zH5wK5PzF5vK5PzXqP8KpP5q3nP8F5zH5wK5PzF5vK5
+PzXqP8KpP5q3nP8F5zH5wK5PzF5vK5PzXqP8KpP5q3nP8F5zH5wK5PzF5vK5PzXqP8
+KpP5q3nP8F5zH5wK5PzF5vK5PzXqP8KpP5q3nP8F5zH5wK5PzF5vK5PzXqP8KpP5q
+3nP8F5zH5wK5PzF5vK5PzXqP8KpP5q3nP8F5zH5wK5PzF5vK5PzXqP8KpP5q3nP8
+<span class="pem-footer">-----END CERTIFICATE-----</span>
+    </div>
+
+</main>
+
+</body>
+</html>
