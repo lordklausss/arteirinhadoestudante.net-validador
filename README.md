@@ -1,0 +1,1 @@
+# arteirinhadoestudante.net-validador
