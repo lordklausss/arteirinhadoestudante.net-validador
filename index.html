@@ -129,6 +129,17 @@
             display: block;
         }
 
+        .image-fallback {
+            padding: 40px;
+            background: #f4f6f9;
+            border: 2px dashed #ccc;
+            border-radius: 8px;
+            color: #666;
+            text-align: center;
+            width: 100%;
+            font-size: 14px;
+        }
+
         .details-table {
             flex: 1;
             border-collapse: collapse;
@@ -269,7 +280,11 @@
         <div class="main-content">
             
             <div class="card-image-container">
-                <img src="CLAUDIOSANTOS.png" alt="Documento Nacional do Estudante">
+                <img 
+                    src="cartao-dne.png" 
+                    alt="Documento Nacional do Estudante"
+                    onerror="this.onerror=null; this.outerHTML='<div class=&quot;image-fallback&quot;>Imagem não encontrada: cartao-dne.png</div>';"
+                >
             </div>
 
             <table class="details-table">
