@@ -14,7 +14,7 @@
         body {
             font-family: Arial, Helvetica, sans-serif;
             background-color: #f4f6f9;
-            color: #333;
+            color: #000;
         }
 
         /* Cabeçalho */
@@ -25,6 +25,7 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
+            position: relative;
         }
 
         .header-logo {
@@ -57,24 +58,107 @@
             color: #fff;
         }
 
-        .header-center {
-            flex: 1;
-            display: flex;
-            justify-content: center;
-        }
-
         .header-right {
-            flex: 1;
             display: flex;
-            justify-content: flex-end;
+            align-items: center;
+            gap: 15px;
         }
 
-        .header-center a, .header-right a {
-            color: #fff;
-            text-decoration: none;
-            font-size: 15px;
+        /* Botão sanduíche */
+        .menu-btn {
+            background: transparent;
+            border: 2px solid #fff;
+            border-radius: 6px;
+            width: 42px;
+            height: 42px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             cursor: pointer;
-            white-space: nowrap;
+            transition: all 0.3s ease;
+        }
+
+        .menu-btn:hover {
+            background: rgba(255, 255, 255, 0.15);
+        }
+
+        .menu-btn span {
+            display: block;
+            width: 22px;
+            height: 2px;
+            background: #fff;
+            position: relative;
+        }
+
+        .menu-btn span::before,
+        .menu-btn span::after {
+            content: '';
+            position: absolute;
+            width: 22px;
+            height: 2px;
+            background: #fff;
+            left: 0;
+        }
+
+        .menu-btn span::before { top: -7px; }
+        .menu-btn span::after { top: 7px; }
+
+        /* Menu lateral direito */
+        .sidebar {
+            position: fixed;
+            top: 0;
+            right: -300px;
+            width: 280px;
+            height: 100%;
+            background: #fff;
+            box-shadow: -4px 0 20px rgba(0, 0, 0, 0.2);
+            z-index: 1100;
+            transition: right 0.35s ease;
+            padding-top: 80px;
+        }
+
+        .sidebar.active {
+            right: 0;
+        }
+
+        .sidebar ul {
+            list-style: none;
+        }
+
+        .sidebar li {
+            padding: 18px 25px;
+            cursor: pointer;
+            transition: background 0.25s ease;
+            border-bottom: 1px solid #eee;
+            font-size: 15px;
+            color: #000;
+            font-weight: 500;
+        }
+
+        .sidebar li:hover {
+            background: #f4f6f9;
+            padding-left: 30px;
+        }
+
+        .sidebar li.active {
+            background: #0d47a1;
+            color: #fff;
+        }
+
+        /* Overlay */
+        .menu-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 1050;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+        }
+
+        .menu-overlay.active {
+            opacity: 1;
+            visibility: visible;
         }
 
         /* Container Principal */
@@ -134,7 +218,7 @@
             background: #f4f6f9;
             border: 2px dashed #ccc;
             border-radius: 8px;
-            color: #666;
+            color: #000;
             text-align: center;
             width: 100%;
             font-size: 14px;
@@ -150,7 +234,7 @@
             padding: 15px;
             border-bottom: 1px solid #eee;
             font-size: 14px;
-            color: #333;
+            color: #000;
         }
 
         .details-table tr:last-child td {
@@ -160,8 +244,20 @@
         .details-table td:first-child {
             font-weight: bold;
             width: 35%;
-            color: #555;
-            background-color: #fafafa;
+            color: #000;
+            text-align: right;
+            background-color: transparent;
+        }
+
+        .details-table td:last-child {
+            text-align: left;
+            color: #000;
+        }
+
+        /* Texto em caixa alta — normalizado */
+        .up {
+            font-size: 0.87em;
+            letter-spacing: 0.01em;
         }
 
         .validity-text {
@@ -176,7 +272,7 @@
         .pem-section h4 {
             font-size: 16px;
             margin-bottom: 10px;
-            color: #333;
+            color: #000;
         }
 
         .pem-textarea {
@@ -189,7 +285,7 @@
             border-radius: 4px;
             background-color: #fcfcfc;
             resize: vertical;
-            color: #333;
+            color: #000;
             line-height: 1.4;
             white-space: pre-wrap;
             word-wrap: break-word;
@@ -208,9 +304,6 @@
             .header {
                 padding: 15px 20px;
             }
-            .header-center a, .header-right a {
-                font-size: 12px;
-            }
             .logo-text {
                 font-size: 16px;
             }
@@ -218,6 +311,13 @@
                 width: 35px;
                 height: 35px;
                 font-size: 8px;
+            }
+            .menu-btn {
+                width: 38px;
+                height: 38px;
+            }
+            .sidebar {
+                width: 260px;
             }
             .container {
                 margin: 15px;
@@ -236,7 +336,7 @@
                 width: 100%;
             }
             .details-table td:first-child {
-                width: 40%;
+                width: 45%;
             }
             .alert-success {
                 font-size: 18px;
@@ -259,13 +359,23 @@
             </div>
             <span class="logo-text">DCE-GO</span>
         </div>
-        <div class="header-center">
-            <a>Lei da Meia Entrada</a>
-        </div>
         <div class="header-right">
-            <a>Validação da Carteira</a>
+            <div class="menu-btn" onclick="toggleMenu()" aria-label="Abrir menu">
+                <span></span>
+            </div>
         </div>
     </div>
+
+    <!-- Overlay para fechar o menu -->
+    <div class="menu-overlay" id="menuOverlay" onclick="toggleMenu()"></div>
+
+    <!-- Menu lateral direito -->
+    <nav class="sidebar" id="sidebar">
+        <ul>
+            <li onclick="window.location.href='#meia-entrada'">Lei da Meia Entrada</li>
+            <li class="active" onclick="window.location.href='#validacao'">Validação da Carteira</li>
+        </ul>
+    </nav>
 
     <div class="container">
         
@@ -274,7 +384,7 @@
         </div>
 
         <p class="statement-text">
-            DCE-GO atesta que CLAUDIO FILHO RODRIGUES DOS SANTOS é estudante, e está regularmente matriculado(a) em ANÁLISE DE SISTEMAS da instituição CENTRO UNIVERSITÁRIO DE GOIÁS - UNIGOIÁS:
+            DCE-GO atesta que <span class="up">CLAUDIO FILHO RODRIGUES DOS SANTOS</span> é estudante, e está regularmente matriculado(a) em <span class="up">ANÁLISE DE SISTEMAS</span> da instituição <span class="up">CENTRO UNIVERSITÁRIO DE GOIÁS - UNIGOIÁS</span>:
         </p>
 
         <div class="main-content">
@@ -290,15 +400,15 @@
             <table class="details-table">
                 <tr>
                     <td>Nome:</td>
-                    <td>CLAUDIO FILHO RODRIGUES DOS SANTOS</td>
+                    <td><span class="up">CLAUDIO FILHO RODRIGUES DOS SANTOS</span></td>
                 </tr>
                 <tr>
                     <td>Instituição:</td>
-                    <td>CENTRO UNIVERSITÁRIO DE GOIÁS - UNIGOIÁS</td>
+                    <td><span class="up">CENTRO UNIVERSITÁRIO DE GOIÁS - UNIGOIÁS</span></td>
                 </tr>
                 <tr>
                     <td>Curso:</td>
-                    <td>ANÁLISE DE SISTEMAS</td>
+                    <td><span class="up">ANÁLISE DE SISTEMAS</span></td>
                 </tr>
                 <tr>
                     <td>Documento de Identificação:</td>
@@ -367,5 +477,19 @@ fG0hI2jK4lM6nO8pQ0rS2tU4vW6xY8zA0bC2dE4fG6hI8jK0lM2nO4pQ6rS8tU0v
         &copy; 2026 DCE-GO. Todos os direitos reservados.
     </div>
 
+    <script>
+        function toggleMenu() {
+            document.getElementById('sidebar').classList.toggle('active');
+            document.getElementById('menuOverlay').classList.toggle('active');
+        }
+
+        // Fechar menu com tecla ESC
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                document.getElementById('sidebar').classList.remove('active');
+                document.getElementById('menuOverlay').classList.remove('active');
+            }
+        });
+    </script>
 </body>
 </html>
