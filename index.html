@@ -17,77 +17,106 @@
             color: #333;
         }
 
-        /* Cabeçalho Azul */
+        /* Cabeçalho */
         .header {
             background-color: #0d47a1;
             color: #fff;
-            padding: 15px 20px;
+            padding: 15px 40px;
             display: flex;
             justify-content: space-between;
             align-items: center;
         }
+
         .header-logo {
-            font-weight: bold;
-            font-size: 18px;
             display: flex;
             align-items: center;
             gap: 10px;
+            flex: 1;
+            justify-content: flex-start;
         }
-        .header-logo span { font-size: 20px; }
-        
-        /* Menu Hambúrguer (Visível apenas no celular) */
-        .header-menu {
-            display: none;
-            font-size: 24px;
+
+        .logo-circle {
+            background-color: #fff;
+            color: #0d47a1;
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            font-size: 10px;
+            font-weight: bold;
+            line-height: 1.1;
+            text-transform: uppercase;
+        }
+
+        .logo-text {
+            font-weight: bold;
+            font-size: 20px;
+            color: #fff;
+        }
+
+        .header-center {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+        }
+
+        .header-right {
+            flex: 1;
+            display: flex;
+            justify-content: flex-end;
+        }
+
+        .header-center a, .header-right a {
+            color: #fff;
+            text-decoration: none;
+            font-size: 15px;
             cursor: pointer;
+            white-space: nowrap;
         }
-        .header-nav { display: flex; gap: 25px; font-size: 14px; }
-        .header-nav a { color: #fff; text-decoration: none; cursor: pointer; }
 
         /* Container Principal */
         .container {
             max-width: 1100px;
-            margin: 0 auto;
+            margin: 30px auto;
             background: #fff;
-            padding: 20px;
-            min-height: 100vh;
+            padding: 30px 40px;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
         }
 
-        /* Alerta Verde - AJUSTADO */
         .alert-success {
-            background-color: #d4edda; /* Cor de fundo solicitada */
+            background-color: #d4edda;
             color: #155724;
             padding: 20px;
             border-radius: 8px;
             text-align: center;
-            font-size: 22px;
-            font-weight: normal; /* SEM NEGRITO */
+            font-size: 24px;
+            font-weight: normal;
             margin-bottom: 25px;
         }
 
-        /* Texto de Declaração - AJUSTADO */
         .statement-text {
             text-align: center;
             font-size: 15px;
             line-height: 1.5;
-            margin-bottom: 25px;
+            margin-bottom: 30px;
             color: #000;
-            font-weight: normal; /* SEM NEGRITO */
+            font-weight: normal;
         }
 
-        /* Layout Principal (Muda para coluna no celular) */
         .main-content {
             display: flex;
-            flex-direction: column; /* Coluna por padrão para mobile-first */
-            gap: 20px;
-            align-items: center;
+            gap: 40px;
+            align-items: flex-start;
             margin-bottom: 20px;
         }
 
-        /* Imagem do Cartão */
         .card-image-container {
-            width: 100%;
-            max-width: 500px;
+            width: 500px;
+            flex-shrink: 0;
             display: flex;
             justify-content: center;
         }
@@ -100,22 +129,23 @@
             display: block;
         }
 
-        /* Tabela de Detalhes */
         .details-table {
-            width: 100%;
+            flex: 1;
             border-collapse: collapse;
-            background: #fff;
-            border-radius: 8px;
-            overflow: hidden;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+            width: 100%;
         }
+
         .details-table td {
             padding: 15px;
             border-bottom: 1px solid #eee;
             font-size: 14px;
             color: #333;
         }
-        .details-table tr:last-child td { border-bottom: none; }
+
+        .details-table tr:last-child td {
+            border-bottom: none;
+        }
+
         .details-table td:first-child {
             font-weight: bold;
             width: 35%;
@@ -123,7 +153,6 @@
             background-color: #fafafa;
         }
 
-        /* Data de Validade e PEM */
         .validity-text {
             text-align: center;
             color: #0d47a1;
@@ -139,24 +168,22 @@
             color: #333;
         }
 
-        /* Textarea do PEM - AJUSTADO PARA FICAR LARGO E ALTO */
         .pem-textarea {
-            width: 100%; /* Ocupa de margem a margem */
-            height: 400px; /* Altura grande para caber o código */
+            width: 100%;
+            height: 400px;
             padding: 15px;
             font-family: 'Courier New', Courier, monospace;
-            font-size: 11px;
+            font-size: 12px;
             border: 1px solid #ccc;
             border-radius: 4px;
             background-color: #fcfcfc;
             resize: vertical;
             color: #333;
             line-height: 1.4;
-            white-space: pre-wrap; /* Quebra as linhas longas automaticamente */
+            white-space: pre-wrap;
             word-wrap: break-word;
         }
 
-        /* Rodapé */
         .footer {
             background-color: #1a237e;
             color: #fff;
@@ -166,76 +193,85 @@
             margin-top: 40px;
         }
 
-        /* ----- AJUSTES PARA TELAS GRANDES (DESKTOP) ----- */
-        @media (min-width: 900px) {
+        @media (max-width: 900px) {
+            .header {
+                padding: 15px 20px;
+            }
+            .header-center a, .header-right a {
+                font-size: 12px;
+            }
+            .logo-text {
+                font-size: 16px;
+            }
+            .logo-circle {
+                width: 35px;
+                height: 35px;
+                font-size: 8px;
+            }
             .container {
-                margin: 30px auto;
-                border-radius: 8px;
-                box-shadow: 0 4px 12px rgba(0,0,0,0.05);
-                padding: 30px 40px;
-                min-height: auto;
+                margin: 15px;
+                padding: 20px;
             }
             .main-content {
-                flex-direction: row;
-                align-items: flex-start;
-                gap: 40px;
+                flex-direction: column;
+                align-items: center;
+                gap: 20px;
             }
-            .header-menu { display: none; }
-            .header-nav { display: flex; }
-        }
-
-        /* ----- AJUSTES PARA TELAS PEQUENAS (CELULAR) ----- */
-        @media (max-width: 899px) {
-            .header-nav { display: none; } /* Esconde o menu de links */
-            .header-menu { display: block; } /* Mostra o ícone hambúrguer */
-            .container { padding: 15px; }
-            .alert-success { font-size: 18px; padding: 15px; }
-            .statement-text { font-size: 14px; text-align: left; } /* Alinhamento justificado ou à esquerda fica melhor no celular */
-            .card-image-container { max-width: 100%; }
-            .details-table td { padding: 12px; font-size: 13px; }
-            .details-table td:first-child { width: 40%; }
-            .pem-textarea { height: 300px; font-size: 10px; }
+            .card-image-container {
+                width: 100%;
+                max-width: 500px;
+            }
+            .details-table {
+                width: 100%;
+            }
+            .details-table td:first-child {
+                width: 40%;
+            }
+            .alert-success {
+                font-size: 18px;
+                padding: 15px;
+            }
+            .statement-text {
+                font-size: 14px;
+                text-align: left;
+            }
         }
     </style>
 </head>
 <body>
 
-    <!-- Cabeçalho -->
     <div class="header">
         <div class="header-logo">
-            <span>🎓</span> DCE-GO
+            <div class="logo-circle">
+                <span>DCE</span>
+                <span>GO</span>
+            </div>
+            <span class="logo-text">DCE-GO</span>
         </div>
-        <div class="header-menu">☰</div> <!-- Ícone de Menu -->
-        <div class="header-nav">
-            <a>Início</a>
-            <a>Emissão</a>
-            <a>Validação de Certificado</a>
+        <div class="header-center">
+            <a>Lei da Meia Entrada</a>
+        </div>
+        <div class="header-right">
+            <a>Validação da Carteira</a>
         </div>
     </div>
 
-    <!-- Conteúdo Principal -->
     <div class="container">
         
-        <!-- Alerta de Válido -->
         <div class="alert-success">
             Documento válido!
         </div>
 
-        <!-- Texto de Declaração (Sem negrito) -->
         <p class="statement-text">
             DCE-GO atesta que CLAUDIO FILHO RODRIGUES DOS SANTOS é estudante, e está regularmente matriculado(a) em ANÁLISE DE SISTEMAS da instituição CENTRO UNIVERSITÁRIO DE GOIÁS - UNIGOIÁS:
         </p>
 
-        <!-- Imagem e Tabela -->
         <div class="main-content">
             
-            <!-- Imagem do Cartão DNE (Aparece primeiro no celular) -->
             <div class="card-image-container">
-                <!-- Lembre-se: 'cartao-dne.png' precisa estar na mesma pasta do index.html -->
-                <img src="cartao-dne.png" alt="Documento Nacional do Estudante">
+                <img src="CLAUDIOSANTOS.png" alt="Documento Nacional do Estudante">
             </div>
 
-            <!-- Tabela de Dados (Aparece abaixo da imagem no celular) -->
             <table class="details-table">
                 <tr>
                     <td>Nome:</td>
@@ -261,12 +297,10 @@
 
         </div>
 
-        <!-- Data de Validade -->
         <div class="validity-text">
             Documento válido até Março de 2027
         </div>
 
-        <!-- Certificado PEM -->
         <div class="pem-section">
             <h4>Certificado de Atributo em formato PEM:</h4>
             <textarea class="pem-textarea" readonly>
@@ -314,7 +348,6 @@ fG0hI2jK4lM6nO8pQ0rS2tU4vW6xY8zA0bC2dE4fG6hI8jK0lM2nO4pQ6rS8tU0v
 
     </div>
 
-    <!-- Rodapé -->
     <div class="footer">
         &copy; 2026 DCE-GO. Todos os direitos reservados.
     </div>
